@@ -1,38 +1,234 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* Layout */
+.app-root {
+  display: grid;
+  grid-template-columns: 260px 1fr;
   min-height: 100vh;
+  background: #f7f7f9;
+  color: #0f172a;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.sidebar {
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  transition: width .25s ease;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.sidebar.collapsed { width: 84px; }
+.sidebar:not(.collapsed) { width: 260px; }
+
+.sidebar-top {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-logo { width: 28px; height: 28px; }
+.brand-name { font-weight: 700; }
+
+.collapse-btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.nav { display: flex; flex-direction: column; }
+.nav-item {
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #334155;
+}
+.nav-item:hover { background: #f2f4f7; }
+.nav-item.active { background: #eef2ff; color: #4338ca; }
+.nav-icon { opacity: .5; }
+
+.content {
+  padding: 28px 36px;
+}
+
+/* Page titles and basic elements */
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 4px 0 16px;
+}
+.muted { color: #6b7280; }
+
+/* Form controls */
+.row { display: flex; flex-wrap: wrap; align-items: center; }
+.gap { gap: 18px; }
+
+.select-wrap { display: flex; flex-direction: column; gap: 8px; width: 360px; max-width: 100%; }
+.label { font-size: 14px; color: #6b7280; }
+.select {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+/* Calendar card */
+.calendar-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  margin-top: 18px;
+  padding: 12px;
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 6px 10px;
+}
+.cal-title { font-weight: 700; }
+.chev {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 8px;
+}
+.cal-dow {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  padding-bottom: 6px;
+}
+.cal-cell {
+  height: 46px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cal-cell.empty { visibility: hidden; }
+.cal-cell.selected { outline: 2px solid #4f46e5; }
+.cal-cell.accent {
+  background: #eef2ff;
+  color: #111827;
+}
+
+/* Times */
+.times-wrap { margin-top: 16px; }
+.times-title { font-size: 18px; margin: 12px 0; }
+.times-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  gap: 12px;
+  max-width: 880px;
+}
+.time-btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.time-btn:hover { background: #f7f7fb; }
+.time-btn:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+.time-btn.active {
+  background: #4f46e5;
+  color: #fff;
+  border-color: #4f46e5;
+}
+.actions { margin-top: 16px; }
+.primary {
+  background: #4f46e5;
   color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+/* Doctors */
+.doctor-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: 14px;
+  max-width: 880px;
+}
+.doctor-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px;
+}
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 800;
+}
+.doctor-name { font-weight: 700; }
+.doctor-email { color: #6b7280; font-size: 14px; }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.page-btn, .page-num {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.page-num.current {
+  background: #4f46e5;
+  color: #fff;
+  border-color: #4f46e5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .times-grid { grid-template-columns: repeat(3, minmax(120px, 1fr)); }
+  .doctor-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .app-root { grid-template-columns: 84px 1fr; }
 }
